@@ -32,5 +32,10 @@ namespace firstWeb
             buttonNext.Visible = true;
             buttonSignIn.Visible = false;
         }
+
+        protected void buttonNextOnClick(object sender, EventArgs e)
+        {
+            Response.Redirect("WebForm2.aspx");
+        }
     }
 }

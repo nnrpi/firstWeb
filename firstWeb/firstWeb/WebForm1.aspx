@@ -42,6 +42,7 @@
             <br />
             <asp:Button ID="buttonNext"
                 Text ="Go next!"
+                OnClick="buttonNextOnClick"
                 runat ="server"
                 Visible ="false" />
         </div>
