@@ -14,25 +14,33 @@
             <p>Hey, if you'd like to join the best New Year party ever, sign in here!</p>
         </div>
         <div>
-            <label>Your name:</label><input type="text", id="name" />
+            <asp:Label ID="labelName"
+                Text="Your name:"
+                runat="server"/>
+            <asp:TextBox ID="textName"
+                runat="server" style="margin-left: 40px" />
         </div>
         <div>
-            <label>Your surname:</label><input type="text" id="surname" />
+            <asp:Label ID="labelSurname"
+                Text="Your surname:"
+                runat="server"/>
+            <asp:TextBox ID="textSurname"
+                runat="server" style="margin-left: 22px" />
         </div>
         <div>
-            <asp:Button ID="ButtonSignIn"
+            <asp:Button ID="buttonSignIn"
                 Text="Sign in!"
                 Onclick="buttonSignInOnClick"
                 runat="server" />
             <br />
             <br />
-            <asp:Label ID="SignInLabel"
+            <asp:Label ID="signInLabel"
                 runat="server"
                 Visible="false"
                 Text="You've signed in!" />
             <br />
             <br />
-            <asp:Button ID="ButtonNext"
+            <asp:Button ID="buttonNext"
                 Text ="Go next!"
                 runat ="server"
                 Visible ="false" />
