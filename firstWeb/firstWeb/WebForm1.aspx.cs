@@ -16,7 +16,7 @@ namespace firstWeb
         IMongoDatabase db;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string connectionString = "mongodb://localhost:27017";
+            string connectionString = "mongodb://admin:5TJpSE@localhost:27017/test?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false";
             MongoClient client = new MongoClient(connectionString);
             db = client.GetDatabase("newYear");
         }
