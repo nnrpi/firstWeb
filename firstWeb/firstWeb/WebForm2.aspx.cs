@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Text;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
@@ -22,6 +24,34 @@ namespace firstWeb
             users = collection.FindSync(FilterDefinition<User>.Empty).ToList();
             int c = users.Count();
             int a = 9;
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[2] {
+                new DataColumn("Name", typeof(string)),
+                new DataColumn("Surname", typeof(string)) }
+            );
+            foreach (User user in users)
+            {
+                dt.Rows.Add(user.name, user.surname);
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<table>");
+            sb.Append("<tr>");
+            foreach (DataColumn column in dt.Columns)
+            {
+                sb.Append("<th>" + column.ColumnName + "</th>");
+            }
+            sb.Append("</tr>");
+            foreach (DataRow row in dt.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (DataColumn column in dt.Columns)
+                {
+                    sb.Append("<td>" + row[column.ColumnName].ToString() + "</td>");
+                }
+                sb.Append("</tr>");
+            }
+            sb.Append("</table");
+            dbTable.Text = sb.ToString();
         }
     }
 }

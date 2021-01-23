@@ -12,6 +12,10 @@
         <div>
             <h1>This is your New Year company:</h1>
         </div>
+        <div>
+            <asp:Literal ID="dbTable" runat ="server" />
+
+        </div>
     </form>
 </body>
 </html>
