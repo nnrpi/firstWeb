@@ -26,6 +26,8 @@ namespace firstWeb
             var collection = db.GetCollection<User>("users");
             string Name = textName.Text;
             string Surname = textSurname.Text;
+            Session["userName"] = Name;
+            Session["userSurname"] = Surname;
             User user = new User { name = Name, surname = Surname };
             collection.InsertOne(user);
             signInLabel.Visible = true;
@@ -35,7 +37,7 @@ namespace firstWeb
 
         protected void buttonNextOnClick(object sender, EventArgs e)
         {
-            Response.Redirect("WebForm2.aspx");
+            Response.Redirect("Webform2.aspx");
         }
     }
 }

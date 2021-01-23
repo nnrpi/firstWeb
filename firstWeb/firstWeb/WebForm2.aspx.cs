@@ -22,8 +22,6 @@ namespace firstWeb
             var collection = db.GetCollection<User>("users");
             List<User> users = new List<User>();
             users = collection.FindSync(FilterDefinition<User>.Empty).ToList();
-            int c = users.Count();
-            int a = 9;
             DataTable dt = new DataTable();
             dt.Columns.AddRange(new DataColumn[2] {
                 new DataColumn("Name", typeof(string)),
@@ -53,6 +51,16 @@ namespace firstWeb
             }
             sb.Append("</table");
             dbTable.Text = sb.ToString();
+        }
+
+        protected void leaveButtonOnClick(object sender, EventArgs e)
+        {
+            var collection = db.GetCollection<User>("users");
+            string Name = Session["userName"].ToString();
+            string Surname = Session["userSurname"].ToString();
+            var deleteFilter = Builders<User>.Filter.Eq("name", Name) & Builders<User>.Filter.Eq("surname", Surname);
+            collection.FindOneAndDelete(deleteFilter);
+            Response.Redirect("Webform1.aspx");
         }
     }
 }

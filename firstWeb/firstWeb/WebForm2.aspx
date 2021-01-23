@@ -12,6 +12,10 @@
             width: 200px;
             text-align: center;
         }
+        p {
+            font-size: 20px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -21,6 +25,13 @@
         </div>
         <div>
             <asp:Literal ID="dbTable" runat ="server" />
+        </div>
+        <div>
+            <p>I've changed my mind and don't want to join the party</p>
+            <asp:Button ID="leaveButton"
+                runat="server"
+                OnClick="leaveButtonOnClick"
+                Text="Leave the party" style="margin-left: 3px" />
         </div>
     </form>
 </body>
