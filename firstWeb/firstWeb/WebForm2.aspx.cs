@@ -34,7 +34,8 @@ namespace firstWeb
                 dt.Rows.Add(user.name, user.surname);
             }
             StringBuilder sb = new StringBuilder();
-            sb.Append("<table>");
+            string tableHeader = "<table>";
+            sb.Append(tableHeader);
             sb.Append("<tr>");
             foreach (DataColumn column in dt.Columns)
             {

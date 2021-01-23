@@ -6,6 +6,13 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <style>
+        table, th, td, tr {
+            border: 1px solid black;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -14,7 +21,6 @@
         </div>
         <div>
             <asp:Literal ID="dbTable" runat ="server" />
-
         </div>
     </form>
 </body>
