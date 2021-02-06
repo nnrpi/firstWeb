@@ -19,48 +19,87 @@ namespace firstWeb
             string connectionString = "mongodb://admin:5TJpSE@contester.ddns.is74.ru:27017/test?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false";
             MongoClient client = new MongoClient(connectionString);
             db = client.GetDatabase("newYear");
-            var collection = db.GetCollection<User>("users");
+
+
+            var colUsers = db.GetCollection<User>("users");
             List<User> users = new List<User>();
-            users = collection.FindSync(FilterDefinition<User>.Empty).ToList();
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[2] {
-                new DataColumn("Name", typeof(string)),
-                new DataColumn("Surname", typeof(string)) }
-            );
-            foreach (User user in users)
+            users = colUsers.FindSync(FilterDefinition<User>.Empty).ToList();
+            TableHeaderRow thr = new TableHeaderRow();
+            TableHeaderCell thcName = new TableHeaderCell();
+            TableHeaderCell thcSurname = new TableHeaderCell();
+            thcName.Text = "Name";
+            thcSurname.Text = "Surname";
+            thr.Cells.Add(thcName);
+            thr.Cells.Add(thcSurname);
+            tableUsers.Rows.Add(thr);
+            foreach(User user in users)
             {
-                dt.Rows.Add(user.name, user.surname);
+                TableCell tcName = new TableCell();
+                TableCell tcSurname = new TableCell();
+                tcName.Text = user.name;
+                tcSurname.Text = user.surname;
+                TableRow tr = new TableRow();
+                tr.Cells.Add(tcName);
+                tr.Cells.Add(tcSurname);
+                tableUsers.Rows.Add(tr);
             }
-            StringBuilder sb = new StringBuilder();
-            string tableHeader = "<table>";
-            sb.Append(tableHeader);
-            sb.Append("<tr>");
-            foreach (DataColumn column in dt.Columns)
+
+
+            var colFood = db.GetCollection<Food>("food");
+            List<Food> food = new List<Food>();
+            food = colFood.FindSync(FilterDefinition<Food>.Empty).ToList();
+            TableHeaderRow thrFood = new TableHeaderRow();
+            TableHeaderCell thcDish = new TableHeaderCell();
+            TableHeaderCell thcOwner = new TableHeaderCell();
+            thcDish.Text = "Dish";
+            thcOwner.Text = "Owner";
+            thrFood.Cells.Add(thcDish);
+            thrFood.Cells.Add(thcOwner);
+            tableFood.Rows.Add(thrFood);
+            foreach (Food f in food)
             {
-                sb.Append("<th>" + column.ColumnName + "</th>");
+                TableCell tcDish = new TableCell();
+                TableCell tcOwner = new TableCell();
+                tcDish.Text = f.dish;
+                tcOwner.Text = f.owner;
+                TableRow tr = new TableRow();
+                tr.Cells.Add(tcDish);
+                tr.Cells.Add(tcOwner);
+                tableFood.Rows.Add(tr);
             }
-            sb.Append("</tr>");
-            foreach (DataRow row in dt.Rows)
-            {
-                sb.Append("<tr>");
-                foreach (DataColumn column in dt.Columns)
-                {
-                    sb.Append("<td>" + row[column.ColumnName].ToString() + "</td>");
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table");
-            dbTable.Text = sb.ToString();
         }
 
         protected void leaveButtonOnClick(object sender, EventArgs e)
         {
-            var collection = db.GetCollection<User>("users");
+            var colUsers = db.GetCollection<User>("users");
+            var colFood = db.GetCollection<Food>("food");
             string Name = Session["userName"].ToString();
             string Surname = Session["userSurname"].ToString();
-            var deleteFilter = Builders<User>.Filter.Eq("name", Name) & Builders<User>.Filter.Eq("surname", Surname);
-            collection.FindOneAndDelete(deleteFilter);
+            string Owner = Name + " " + Surname;
+            var deleteFilterUsers = Builders<User>.Filter.Eq("name", Name) & Builders<User>.Filter.Eq("surname", Surname);
+            var deleteFilterFood = Builders<Food>.Filter.Eq("owner", Owner);
+            colUsers.FindOneAndDelete(deleteFilterUsers);
+            colFood.DeleteMany(deleteFilterFood);
             Response.Redirect("Webform1.aspx");
+        }
+
+        protected void addFoodButtonOnClick(object sender, EventArgs e)
+        {
+            var collection = db.GetCollection<Food>("food");
+            string Name = Session["userName"].ToString();
+            string Surname = Session["userSurname"].ToString();
+            string Owner = Name + " " + Surname;
+            string Dish = textAddFood.Text;
+            Food newFood = new Food { dish = Dish, owner = Owner };
+            collection.InsertOne(newFood);
+            TableRow tr = new TableRow();
+            TableCell tc1 = new TableCell();
+            TableCell tc2 = new TableCell();
+            tc1.Text = Dish;
+            tc2.Text = Owner;
+            tr.Cells.Add(tc1);
+            tr.Cells.Add(tc2);
+            tableFood.Rows.Add(tr);
         }
     }
 }

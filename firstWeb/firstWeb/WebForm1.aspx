@@ -25,7 +25,7 @@
                 Text="Your surname:"
                 runat="server"/>
             <asp:TextBox ID="textSurname"
-                runat="server" style="margin-left: 22px" />
+                runat="server" style="margin-left: 21px" />
         </div>
         <div>
             <asp:Button ID="buttonSignIn"

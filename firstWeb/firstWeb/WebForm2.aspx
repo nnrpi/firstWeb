@@ -16,6 +16,17 @@
             font-size: 20px;
             font-weight: 600;
         }
+        .tableUser {
+            width: 300px;
+            float: left;
+        }
+        .tableFoods {
+            width: 300px;
+            float: left;
+        }
+        .clear {
+            clear: left;
+        }
     </style>
 </head>
 <body>
@@ -23,11 +34,30 @@
         <div>
             <h1>This is your New Year company:</h1>
         </div>
+        <div class="tableUser">
+            <asp:Table ID="tableUsers"
+                runat="server" />
+        </div>
+        <div class="tableFoods">
+            <asp:Table ID="tableFood"
+                runat="server" />
+        </div>
+        <div class="clear"></div>
         <div>
-            <asp:Literal ID="dbTable" runat ="server" />
+            <p>I want to bring some food!</p>
+            Write what u want to bring in the field and then press the button
         </div>
         <div>
-            <p>I've changed my mind and don't want to join the party</p>
+            <asp:Button ID="AddFoodButton"
+                runat="server"
+                OnClick="addFoodButtonOnClick"
+                Text="Add food" />
+            <asp:TextBox ID="textAddFood"
+                runat="server"
+                style="margin-left: 50px" />
+        </div>
+        <div>
+            <p>I've changed my mind and don't wanna join the party</p>
             <asp:Button ID="leaveButton"
                 runat="server"
                 OnClick="leaveButtonOnClick"
