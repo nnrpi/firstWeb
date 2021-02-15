@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <h1>New Year party!!!</h1>
+            <h1>Spring holidays party!!!</h1>
             <p>Hey, if you'd like to join the best New Year party ever, sign in here!</p>
         </div>
         <div>
